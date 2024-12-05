@@ -47,4 +47,5 @@ void ServoHandler::updateDegrees() // ask if the getDeggrss is the old degrees e
 uint8_t ServoHandler::calcDutyCycle(uint8_t degrees)
 {
     degrees = constrain(degrees, maxRange_[0], maxRange_[1]);
+    return map(degrees, 0, 180, 1000, 2000);
 }
