@@ -38,14 +38,14 @@ void ServoHandler::updateDegrees() // ask if the getDeggrss is the old degrees e
 {
     if (this->currentDegress_ != this->targetedDegrees_)
     {
-        PWMHandler_->updateModulation(); // Frage ob er direkt geht 
-        Serial.println("TODO");
+        PWMHandler_->setDutyCycle(this->calcDutyCycle(targetedDegrees_));
         currentDegress_ = targetedDegrees_;
     }
+    PWMHandler_->updateModulation();
 }
 
 uint8_t ServoHandler::calcDutyCycle(uint8_t degrees)
 {
     degrees = constrain(degrees, maxRange_[0], maxRange_[1]);
-    return map(degrees, 0, 180, 1000, 2000);
+    return map(degrees, maxRange_[0], maxRange_[1], 0, 100); //map(long x, long in_min, long in_max, long out_min, long out_max)
 }

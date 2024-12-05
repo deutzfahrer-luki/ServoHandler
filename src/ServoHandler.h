@@ -15,7 +15,8 @@ public:
     void setDegrees(uint8_t degrees);
     uint8_t getDegrees();
     void updateDegrees(); // ask if the getDeggrss is the old degrees
-
+    uint8_t calcDutyCycle(uint8_t degrees);
+    
 private:
     uint8_t pin_;
     uint8_t maxRange_[2];
@@ -28,7 +29,7 @@ private:
     uint8_t currentDegress_;
     uint8_t oldCurrentDegrees_;
   
-    uint8_t calcDutyCycle(uint8_t degrees);
+    
 };
 
 #endif // SERVOHANDLER_H
