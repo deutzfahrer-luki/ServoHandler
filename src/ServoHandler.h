@@ -3,21 +3,32 @@
 #define SERVOHANDLER_H
 
 #include <Arduino.h>
-#include <ServoHandler.h>
+#include <PWMHandler.h>
+
+#define STANDART_PERIOD_DURATION 20000
+
 class ServoHandler
 {
 public:
     ServoHandler(uint8_t pin); // Standartconstructor for standart degress
-    ServoHandler(uint8_t pin, uint8_t startDegress, uint8_t endDegrees);
+    ServoHandler(uint8_t pin, uint8_t startRange, uint8_t endRange);
     void setDegrees(uint8_t degrees);
     uint8_t getDegrees();
-    void updateDegrees(); // ask if the 
+    void updateDegrees(); // ask if the getDeggrss is the old degrees
 
 private:
-    uint8_t startDegress_; 
-    uint8_t endDegrees_;
+    uint8_t pin_;
+    uint8_t maxRange_[2];
+    uint8_t range_[2]; 
+    unsigned long periodDuration_us_ = STANDART_PERIOD_DURATION;
 
+    PWMHandler* PWMHandler_;
+    
+    uint8_t targetedDegrees_;
     uint8_t currentDegress_;
+    uint8_t oldCurrentDegrees_;
+  
+    uint8_t calcDutyCycle(uint8_t degrees);
 };
 
 #endif // SERVOHANDLER_H
