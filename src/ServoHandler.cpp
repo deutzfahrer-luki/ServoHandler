@@ -4,8 +4,6 @@
 ServoHandler::ServoHandler(uint8_t pin) : pin_(pin) // Standartconstructor for standart degress
 {
     this->PWMHandler_ = new PWMHandler(pin_, periodDuration_us_);
-    this->currentDegress_ = 0;
-    this->oldCurrentDegrees_ = 0;
 
     this->maxRange_[0] = 0;
     this->maxRange_[1] = 180;
@@ -14,8 +12,6 @@ ServoHandler::ServoHandler(uint8_t pin) : pin_(pin) // Standartconstructor for s
 ServoHandler::ServoHandler(uint8_t pin, uint8_t startRange, uint8_t endRange) : pin_(pin)
 {
     this->PWMHandler_ = new PWMHandler(pin_, periodDuration_us_);
-    this->currentDegress_ = 0;
-    this->oldCurrentDegrees_ = 0;
 
     this->maxRange_[0] = startRange;
     this->maxRange_[1] = endRange;
@@ -39,7 +35,7 @@ void ServoHandler::setDegrees(uint8_t degrees)
 
 uint8_t ServoHandler::getDegrees()
 {
-    return this->currentDegress_;
+    return this->targetedDegrees_;
 }
 
 void ServoHandler::updateDegrees() // ask if the getDeggrss is the old degrees else turn the servo!
