@@ -20,7 +20,7 @@ public:
 private:
     uint8_t pin_;
     uint8_t maxRange_[2];
-    uint8_t range_[2]; 
+    // uint8_t range_[2]; 
     unsigned long periodDuration_us_ = STANDART_PERIOD_DURATION;
 
     PWMHandler* PWMHandler_;
