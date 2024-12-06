@@ -2,6 +2,7 @@
 #include <ServoHandler.h>
 
 #define PIN 33
+#define DELAY_TIME 400
 
 int i =0;
 
@@ -20,16 +21,17 @@ void setup() {
 
 void loop() {
   Servo.updateDegrees();
-  // currentTime = millis();
-  // if (currentTime > oldTime+100)
-  // {
-  //   Servo.setDegrees(i);
-  //   if (i > 160)
-  //     i =0;
-  //   i = i + 20;
-  //   Serial.println(i);
-  //   oldTime = currentTime;
-  // }
+  currentTime = millis();
+  if (currentTime > oldTime+DELAY_TIME)
+  {
+    Servo.setDegrees(i);
+    if (i > 160)
+      i =0;
+    i = i + 10;
+    Serial.println(i);
+    Serial.println(Servo.getDegrees());
+    oldTime = currentTime;
+  }
   // Serial.println(Servo.calcDutyCycle(90));
   // delay(10000);
 }

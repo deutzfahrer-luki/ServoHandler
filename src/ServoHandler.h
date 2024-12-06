@@ -26,10 +26,6 @@ private:
     PWMHandler* PWMHandler_;
     
     uint8_t targetedDegrees_;
-    uint8_t currentDegress_;
-    uint8_t oldCurrentDegrees_;
-  
-    
 };
 
 #endif // SERVOHANDLER_H

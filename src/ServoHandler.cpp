@@ -26,7 +26,8 @@ ServoHandler::ServoHandler(uint8_t pin, uint8_t startRange, uint8_t endRange) : 
 
 void ServoHandler::setDegrees(uint8_t degrees)
 {
-    this->targetedDegrees_ = degrees; 
+    targetedDegrees_ = degrees;
+    PWMHandler_->setDutyCycle(this->calcDutyCycle(targetedDegrees_));
 }
 
 uint8_t ServoHandler::getDegrees()
@@ -36,16 +37,11 @@ uint8_t ServoHandler::getDegrees()
 
 void ServoHandler::updateDegrees() // ask if the getDeggrss is the old degrees else turn the servo!
 {
-    if (this->currentDegress_ != this->targetedDegrees_)
-    {
-        PWMHandler_->setDutyCycle(this->calcDutyCycle(targetedDegrees_));
-        currentDegress_ = targetedDegrees_;
-    }
     PWMHandler_->updateModulation();
 }
 
 uint8_t ServoHandler::calcDutyCycle(uint8_t degrees)
 {
     degrees = constrain(degrees, maxRange_[0], maxRange_[1]);
-    return map(degrees, maxRange_[0], maxRange_[1], 0, 100); //map(long x, long in_min, long in_max, long out_min, long out_max)
+    return map(degrees, maxRange_[0], maxRange_[1], 0, 100);    // map(long x, long in_min, long in_max, long out_min, long out_max)
 }
