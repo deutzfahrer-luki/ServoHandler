@@ -4,34 +4,40 @@
 #define PIN 33
 #define DELAY_TIME 400
 
-int i =0;
-
 unsigned long long currentTime = 0;
 unsigned long long oldTime = currentTime;
 
-ServoHandler Servo(PIN);
+float deg = 20;
 
-void setup() {
+ServoHandler Servo(PIN, 1.8, 12.8);
+
+void updatePWMFromSerial()
+{
+  if (Serial.available() > 0)
+  {
+    deg = Serial.parseFloat();
+    if (deg >= 0 && deg <= 180)
+    {
+      deg = deg;
+      Servo.setDegrees(deg);
+    }
+    else
+      Serial.println("Ungueltiger Wert! Bitte eine Zahl zwischen 0 und 180 eingeben.");
+    while (Serial.available() > 0)
+      Serial.read();
+  }
+}
+
+void setup()
+{
   Serial.begin(115200);
   Servo.setDegrees(120);
   Serial.println("HALLO");
   Serial.println(Servo.calcDutyCycle(120));
-
 }
 
-void loop() {
+void loop()
+{
   Servo.updateDegrees();
-  currentTime = millis();
-  if (currentTime > oldTime+DELAY_TIME)
-  {
-    Servo.setDegrees(i);
-    if (i > 160)
-      i =0;
-    i = i + 10;
-    Serial.println(i);
-    Serial.println(Servo.getDegrees());
-    oldTime = currentTime;
-  }
-  // Serial.println(Servo.calcDutyCycle(90));
-  // delay(10000);
+  updatePWMFromSerial();
 }
