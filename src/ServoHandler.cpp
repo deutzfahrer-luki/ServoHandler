@@ -33,7 +33,7 @@ void ServoHandler::setDegrees(uint8_t degrees)
     {
         targetedDegrees_ = degrees;
         PWMHandler_->setDutyCycle(this->calcDutyCycle(targetedDegrees_));
-        Serial.println(PWMHandler_->getDutyCycle);
+        // Serial.println(PWMHandler_->getDutyCycle);
     }
     else
     {
